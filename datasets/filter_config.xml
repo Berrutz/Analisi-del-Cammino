@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+    
+    <filter-config>
+        <filter-type>lowpass</filter-type>
+        <filter-cutoff>1.4</filter-cutoff>
+        <filter-order>2</filter-order>
+        <sampling-frequency>30</sampling-frequency>
+    </filter-config>
+
+    <datasets-root>./</datasets-root>
+    <datasets-extension>.csv</datasets-extension>
+    <datasets-name-match>[SP][0-9][0-9][0-9]_(N|TP|P)_[0-9]</datasets-name-match>
+
+</filter>
