@@ -19,11 +19,6 @@ def method_3():
 
 
 
-
-
-
-
-
 def method_1(seriesList, periods):
 
     # get the lenght of the list with min lenght
