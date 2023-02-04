@@ -191,6 +191,71 @@ def __rolling(series: np.ndarray, window: int, rol_func):
     return np.array(rol_series)
 
 
+
+def run_analysis_m1(series_list, periods, title = ""):
+
+    if not isinstance(series_list[0], list):
+        aux1 = series_list[:len(series_list)//2]
+        aux2 = series_list[len(series_list)//2:]
+        series_list = [aux1, aux2]
+        min_len = len(aux1) if len(aux1) < len(aux2) else len(aux2)
+        if periods[len(periods)-1] > (min_len//2)-1:
+            periods = helper.intspace(1, (len(aux1)//2)-1 if len(aux1) < len(aux2) else (len(aux2)//2)-1)
+
+    # run analysis method
+    best_error, best_period, errors = method_1(series_list, periods)
+    out_periods = method_1_stepAnalyzer(errors, periods)
+    
+    # plot
+    plt.figure(figsize=(20,5))
+    plt.plot(periods, errors)
+    plt.title(title)
+    
+    xticks = [out_periods[0]]
+    
+    if len(out_periods) > 0:
+        xticks = [out_periods[0]]
+        for period in out_periods:
+            plt.axvline(period, linewidth=1, color='r', linestyle='--')
+            if xticks[len(xticks) - 1] == period or period - xticks[len(xticks) - 1] < 5:
+                continue
+            xticks.append(period)
+
+    plt.xticks(xticks)
+    plt.show()
+
+
+def run_analysis_m1_rolling(series_list, periods, title = ""):
+
+    if not isinstance(series_list[0], list):
+        aux1 = series_list[:len(series_list)//2]
+        aux2 = series_list[len(series_list)//2:]
+        series_list = [aux1, aux2]
+        min_len = len(aux1) if len(aux1) < len(aux2) else len(aux2)
+        if periods[len(periods)-1] > (min_len//2)-1:
+            periods = helper.intspace(1, (len(aux1)//2)-1 if len(aux1) < len(aux2) else (len(aux2)//2)-1)
+
+    # run analysis method
+    best_error, best_period, errors = method_1(series_list, periods)
+    out_periods = method_1_stepAnalyzer(errors, periods, method='rm', window = 15)
+
+    # plot
+    plt.figure(figsize=(20,5))
+    plt.plot(periods, errors)
+    plt.title(title)
+    
+    if len(out_periods) > 0:
+        xticks = [out_periods[0]]
+        for period in out_periods:
+            plt.axvline(period, linewidth=1, color='r', linestyle='--')
+            if xticks[len(xticks) - 1] == period or period - xticks[len(xticks) - 1] < 5:
+                continue
+            xticks.append(period)
+
+    plt.xticks(xticks)
+    plt.show()
+    
+'''
 if __name__ == '__main__':
     periods = helper.intspace(-3, 3)
     errors = [33, 40, 38, 50, 2, 10]
@@ -199,3 +264,4 @@ if __name__ == '__main__':
     print(periods)
     print(errors)
     print(err_j)
+'''
