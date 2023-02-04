@@ -3,8 +3,8 @@
     
     <filter-config>
         <filter-type>lowpass</filter-type>
-        <filter-cutoff>1.4</filter-cutoff>
-        <filter-order>2</filter-order>
+        <filter-cutoff>1.2</filter-cutoff>
+        <filter-order>10</filter-order>
         <sampling-frequency>30</sampling-frequency>
     </filter-config>
 

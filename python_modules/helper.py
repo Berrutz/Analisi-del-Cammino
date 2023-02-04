@@ -3,39 +3,25 @@ import pandas as pd
 import math as math
 
 
-def intspace_(stop):
-    """ Return an array of integer elemetns from 0 to stop not included [0,stop) 
-    """
-
-    if not isinstance(stop, int):
-        raise Exception('top value must be an integer')
-
-    if stop <= 0:
-        raise Exception('stop value must be grater then 0')
-        
-    space = []
-    for i in range(stop):
-        space.append(i)
-
-    return np.array(space)
-
-
-def intspace(start, stop):
+def intspace(*args):
     """ Return an array of integer elemetns from start to stop not included [start, stop) 
     """
     
-    if not isinstance(start, int) or not isinstance(stop, int):
-        raise Exception('strat and stop value must be integer values')
+    if len(args) < 1 and len(args) > 3:
+        raise Exception('too many arguments')
 
-    if start >= stop:
-        raise Exception('strat ({}) must be lower then the stop ({}) value'.format(start, stop))
+    for arg in args:
+        if not isinstance(arg, int):
+            raise Exception('{} is not an integer value'.format(arg))
 
+    start = 0 if len(args) == 1 else args[0]
+    end = args[1] if len(args) == 2 else args[0]
+    step = args[2] if len(args) == 3 else 1 if end >= start else -1
     space = []
-    for i in range(start, stop):
+    for i in range(start, end, step):
         space.append(i)
 
     return np.array(space)
-
 
 
 def rename_columns(dataset: pd.DataFrame):
@@ -72,8 +58,7 @@ def rename_columns(dataset: pd.DataFrame):
     
     # set the new columns for the dataset
     dataset.columns = new_columns 
-    
-    
+        
     
 def delete_nan(series):
     """ emlimina i valori nulla in una lista
@@ -83,7 +68,6 @@ def delete_nan(series):
         if not math.isnan(value):
             new_series.append(value)
     return new_series
-
 
 
 def delete_nan_from_DataFrame(dataframe: pd.DataFrame):
@@ -107,4 +91,4 @@ def convert_to_list(series):
     try:
         return series.tolist()
     except:
-        return None   
+        return None

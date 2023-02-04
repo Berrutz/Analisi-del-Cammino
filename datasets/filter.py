@@ -189,14 +189,14 @@ def delete_nan(series):
 
 
 #TODO: export
-def filter_dataframe(dataframe: pd.DataFrame, filter_n_order, filter_cutoff_freq):
+def filter_dataframe(dataframe: pd.DataFrame, filter_n_order, filter_cutoff_freq, btype='low'):
     new_dataframe = pd.DataFrame()
     for idx, column_name in enumerate(dataframe):
         series = delete_nan(dataframe[column_name])     # get the series (the column)
 
-        b, a = signal.butter(filter_n_order, filter_cutoff_freq, fs=sampling_frequency)   # create the filter 
+        b, a = signal.butter(filter_n_order, filter_cutoff_freq, fs=sampling_frequency, btype=btype)   # create the filter 
         filtered_series = signal.filtfilt(b, a, series)     # applay the filter
-        
+
         new_dataframe = pd.concat([new_dataframe, pd.DataFrame({column_name: filtered_series})], axis=1)    #create the filtered dataframe
 
     return new_dataframe
@@ -208,6 +208,9 @@ def filterSingleDataset(root, filename):
     original_dataset = pd.read_csv('{}/{}.csv'.format(root, filename))                                                # reading the dataset
     renamed_dataset = rename_columns(original_dataset)                                          # renaming the column of the dataset
     filtered_dataset = filter_dataframe(renamed_dataset, filter_order, filter_cutoff_freq)      # filter the entire dataset
+    # TODO: Change after 
+    # high pass filter - remove very low freq
+    filtered_dataset = filter_dataframe(filtered_dataset, 5, 0.5, btype='high')
     filtered_dataset.to_csv('{}/{}-filtered.csv'.format(root, filename) )
 
     deltaTime = time.time() - time0     # time taken for the processing
@@ -253,8 +256,8 @@ def filterDatasets():
 
 if __name__ == '__main__':
     # Open the file and read the contents
-    config_path = 'filter_config.xml'
-    print(os.getcwd())
+    config_path = '{}/datasets/filter_config.xml'.format(os.getcwd())
+    print(config_path)
     with open(config_path, 'r', encoding='utf-8') as file:
         filter_config_xml = file.read()
     parseXML(filter_config_xml)
