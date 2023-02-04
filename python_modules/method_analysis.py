@@ -19,11 +19,6 @@ def method_3():
 
 
 
-
-
-
-
-
 def method_1(seriesList, periods):
 
     if not isinstance(seriesList, list):
