@@ -8,7 +8,7 @@ import scipy.fftpack as sft
 import helper as helper
 from statsmodels.tsa.seasonal import seasonal_decompose
 import tstools.analysis as tsa
-
+from scipy.signal import argrelextrema
 
 def method_2():
     raise Exception('Not implemented')
@@ -104,11 +104,19 @@ def __freq_difference(season_1: list, season_2: list):
     return np.power(fft_diff, 2).mean() 
 
 
-def method_1_stepAnalyzer(errors: list, periods: list, rolling = False, window = 30):
+def method_1_stepAnalyzer(errors: list, periods: list, method='m', window = 30):
     """
     Analyze the periods step errors by the difference between the error of one period and the previous one
-    """
 
+    arguments
+    ---------
+        method: str
+            - m     -> find the chages using the mean and std over the entire series
+            - rm    -> find the chages using the rolling mean and rolling std (require window)
+            - lm    -> find the local minima
+            - lmb   -> find the local minima with bounds (require window)
+    """
+    
     if len(errors) != len(periods):
         raise Exception('The errors list length must match the periods list length')
     
@@ -118,7 +126,15 @@ def method_1_stepAnalyzer(errors: list, periods: list, rolling = False, window =
     diffs = errors[1:len(errors)] - errors[:len(errors)-1]
 
     errors_jump = []
-    if rolling:
+    if method == 'm':
+        upper_bound = diffs.mean() + diffs.std()
+        lower_bound = diffs.mean() - diffs.std()
+
+        for idx, diff in enumerate(diffs):
+            if diff > upper_bound or diff < lower_bound:
+                errors_jump.append((periods[idx+1]))
+    
+    elif method == 'rm':
         rolling_mean = __rolling(diffs, window, np.mean)
         rolling_std = __rolling(diffs, window, np.std)
 
@@ -128,13 +144,37 @@ def method_1_stepAnalyzer(errors: list, periods: list, rolling = False, window =
         for idx, diff in enumerate(diffs):
             if diff > upper_bound[idx] or diff < lower_bound[idx]:
                 errors_jump.append((periods[idx+1]))
-    else:
-        upper_bound = diffs.mean() + diffs.std()
-        lower_bound = diffs.mean() - diffs.std()
+    
+    elif method == 'lm':
+        errors_jump = periods[argrelextrema(errors, np.less)[0]]
+    
+    elif method == 'lmb':
+        if window < 2:
+            raise Exception('window ({}) must be greater or equals to 2')
 
-        for idx, diff in enumerate(diffs):
-            if diff > upper_bound or diff < lower_bound:
-                errors_jump.append((periods[idx+1]))
+        arg_locals = argrelextrema(errors, np.less)
+
+        left = window//2
+        right = window//2
+        
+        for local_idx in arg_locals[0]:
+
+            """mean = errors[left  if local_idx - left  >= 0 else 0 
+                        : right if local_idx + right <= 0 else len(errors)-1].mean()
+
+            std = errors[left  if local_idx - left  >= 0 else 0
+                        : right if local_idx + right <= 0 else len(errors)-1].std()"""
+
+            mean = errors[local_idx: right if local_idx + right <= 0 else len(errors)-1].mean()
+
+            std = errors[local_idx: right if local_idx + right <= 0 else len(errors)-1].std()
+
+            if errors[local_idx] < (mean - std):
+                errors_jump.append(periods[local_idx])
+
+    else:
+        raise Exception('method {} not supported'.format(method))
+        
         
 
     return errors_jump
@@ -153,8 +193,8 @@ def __rolling(series: np.ndarray, window: int, rol_func):
 
 if __name__ == '__main__':
     periods = helper.intspace(-3, 3)
-    errors = [13, 17, 20, 50, 37, 4]
-    err_j = method_1_stepAnalyzer(errors, periods, True, 3)
+    errors = [33, 40, 38, 50, 2, 10]
+    err_j = method_1_stepAnalyzer(errors, periods, method='lmb', window=2)
     
     print(periods)
     print(errors)
