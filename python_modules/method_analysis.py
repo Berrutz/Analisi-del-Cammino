@@ -187,21 +187,7 @@ def __rolling(series: np.ndarray, window: int, rol_func):
 
 def run_analysis_m1(series_list, periods, title = ""):
 
-    if not isinstance(series_list[0], list):
-        aux1 = series_list[:len(series_list)//2]
-        aux2 = series_list[len(series_list)//2:]
-        series_list = [aux1, aux2]
-        min_len = len(aux1) if len(aux1) < len(aux2) else len(aux2)
-    else:
-        # get the lenght of the list with min lenght
-        min_len = len(series_list[0])
-        for idx, series in enumerate(series_list):
-            lenght = len(series)
-            if lenght < min_len:
-                min_len = lenght
-                
-    if periods[len(periods)-1] > (min_len//2)-1:
-            periods = helper.intspace(1, min_len//2-1 )
+    series_list, periods = check_periods_and_list(series_list, periods)
             
     # run analysis method
     best_error, best_period, errors = method_1(series_list, periods)
@@ -225,14 +211,14 @@ def run_analysis_m1(series_list, periods, title = ""):
     plt.xticks(xticks)
     plt.show()
 
-
-def run_analysis_m1_rolling(series_list, periods, title = ""):
-
+def check_periods_and_list(series_list, periods):
     if not isinstance(series_list[0], list):
-        aux1 = series_list[:len(series_list)//2]
-        aux2 = series_list[len(series_list)//2:]
-        series_list = [aux1, aux2]
-        min_len = len(aux1) if len(aux1) < len(aux2) else len(aux2)
+        first_half = series_list[:len(series_list)//2]
+        second_half = series_list[len(series_list)//2:]
+        series_list = [first_half, second_half]
+        lengh_first_half = len(first_half)
+        second_first_half = len(second_half)
+        min_len = lengh_first_half if lengh_first_half < second_first_half else second_first_half
     else:
         # get the lenght of the list with min lenght
         min_len = len(series_list[0])
@@ -241,8 +227,14 @@ def run_analysis_m1_rolling(series_list, periods, title = ""):
             if lenght < min_len:
                 min_len = lenght
                 
-    if periods[len(periods)-1] > (min_len//2)-1:
-            periods = helper.intspace(1, min_len//2-1 )
+    if periods[len(periods)-1] > (min_len//2)-1 :
+            periods = helper.intspace(1, min_len//2+1 )
+    return series_list,periods
+
+
+def run_analysis_m1_rolling(series_list, periods, title = ""):
+
+    series_list, periods = check_periods_and_list(series_list, periods)
 
     # run analysis method
     best_error, best_period, errors = method_1(series_list, periods)
