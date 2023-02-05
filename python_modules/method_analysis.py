@@ -36,13 +36,6 @@ def method_1(seriesList, periods):
     if len(seriesList) < 2:
         raise Exception('There should be at least 2 series in series list')
 
-    # get the lenght of the list with min lenght
-    min_len = len(seriesList[0])
-    for idx, series in enumerate(seriesList):
-        lenght = len(series)
-        if lenght < min_len:
-            min_len = lenght
-
     # for each period
     errors = []
     for j, period in enumerate(periods):
@@ -199,9 +192,17 @@ def run_analysis_m1(series_list, periods, title = ""):
         aux2 = series_list[len(series_list)//2:]
         series_list = [aux1, aux2]
         min_len = len(aux1) if len(aux1) < len(aux2) else len(aux2)
-        if periods[len(periods)-1] > (min_len//2)-1:
-            periods = helper.intspace(1, (len(aux1)//2)-1 if len(aux1) < len(aux2) else (len(aux2)//2)-1)
-
+    else:
+        # get the lenght of the list with min lenght
+        min_len = len(series_list[0])
+        for idx, series in enumerate(series_list):
+            lenght = len(series)
+            if lenght < min_len:
+                min_len = lenght
+                
+    if periods[len(periods)-1] > (min_len//2)-1:
+            periods = helper.intspace(1, min_len//2-1 )
+            
     # run analysis method
     best_error, best_period, errors = method_1(series_list, periods)
     out_periods = method_1_stepAnalyzer(errors, periods)
@@ -232,8 +233,16 @@ def run_analysis_m1_rolling(series_list, periods, title = ""):
         aux2 = series_list[len(series_list)//2:]
         series_list = [aux1, aux2]
         min_len = len(aux1) if len(aux1) < len(aux2) else len(aux2)
-        if periods[len(periods)-1] > (min_len//2)-1:
-            periods = helper.intspace(1, (len(aux1)//2)-1 if len(aux1) < len(aux2) else (len(aux2)//2)-1)
+    else:
+        # get the lenght of the list with min lenght
+        min_len = len(series_list[0])
+        for idx, series in enumerate(series_list):
+            lenght = len(series)
+            if lenght < min_len:
+                min_len = lenght
+                
+    if periods[len(periods)-1] > (min_len//2)-1:
+            periods = helper.intspace(1, min_len//2-1 )
 
     # run analysis method
     best_error, best_period, errors = method_1(series_list, periods)
