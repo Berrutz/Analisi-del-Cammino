@@ -152,12 +152,6 @@ def method_1_stepAnalyzer(errors: list, periods: list, method='m', window = 30):
         
         for local_idx in arg_locals[0]:
 
-            """mean = errors[left  if local_idx - left  >= 0 else 0 
-                        : right if local_idx + right <= 0 else len(errors)-1].mean()
-
-            std = errors[left  if local_idx - left  >= 0 else 0
-                        : right if local_idx + right <= 0 else len(errors)-1].std()"""
-
             mean = errors[local_idx: right if local_idx + right <= 0 else len(errors)-1].mean()
 
             std = errors[local_idx: right if local_idx + right <= 0 else len(errors)-1].std()
