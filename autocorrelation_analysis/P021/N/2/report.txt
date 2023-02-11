@@ -1,0 +1,184 @@
+
+-----------------------------------------------
+x_piede_sx_1:
+
+acf locals max     : [ 39  79 117 154 192 229 261 300 338 378 418 456 491 529 567 600 638 677
+ 716 756 796 834 876 915 956 993]
+acf locals max diff: [40 38 37 38 37 32 39 38 40 40 38 35 38 38 33 38 39 39 40 40 38 42 39 41
+ 37]
+
+
+locals max :	- mean: 511.7	- std: 284.8
+locals max :	- mean: 17.06 sec	- std: 9.495 sec
+
+locals max diff:	- mean: 38.16	- std: 2.203
+locals max diff:	- mean: 1.272 sec	- std: 0.07344 sec
+
+
+-----------------------------------------------
+y_piede_sx_1:
+
+acf locals max     : [  42   85  127  169  212  253  294  340  380  424  468  509  559  594
+  631  677  722  761  795  814  850  901  937  968 1000]
+acf locals max diff: [43 42 42 43 41 41 46 40 44 44 41 50 35 37 46 45 39 34 19 36 51 36 31 32]
+
+
+locals max :	- mean: 540.5	- std: 291.9
+locals max :	- mean: 18.02 sec	- std: 9.73 sec
+
+locals max diff:	- mean: 39.92	- std: 6.67
+locals max diff:	- mean: 1.331 sec	- std: 0.2223 sec
+
+
+-----------------------------------------------
+x_piede_sx_2:
+
+acf locals max     : [ 37  77 114 149 185 221 256 293 330 368 406 443 479 514 550 585 622 660
+ 698 736 776 812 852 891 929 964]
+acf locals max diff: [40 37 35 36 36 35 37 37 38 38 37 36 35 36 35 37 38 38 38 40 36 40 39 38
+ 35]
+
+
+locals max :	- mean: 498.0	- std: 277.3
+locals max :	- mean: 16.6 sec	- std: 9.242 sec
+
+locals max diff:	- mean: 37.08	- std: 1.573
+locals max diff:	- mean: 1.236 sec	- std: 0.05243 sec
+
+
+-----------------------------------------------
+y_piede_sx_2:
+
+acf locals max     : [ 41  84 122 164 207 248 291 333 374 417 459 496 540 580 623 664 709 744
+ 776 797 830 873 916 952]
+acf locals max diff: [43 38 42 43 41 43 42 41 43 42 37 44 40 43 41 45 35 32 21 33 43 43 36]
+
+
+locals max :	- mean: 510.0	- std: 275.8
+locals max :	- mean: 17.0 sec	- std: 9.193 sec
+
+locals max diff:	- mean: 39.61	- std: 5.289
+locals max diff:	- mean: 1.32 sec	- std: 0.1763 sec
+
+
+-----------------------------------------------
+x_piede_sx_3:
+
+acf locals max     : [ 39  78 115 153 192 231 266 303 341 380 419 455 493 531 570 606 643 682
+ 722 761 801 839 881 920 961 998]
+acf locals max diff: [39 37 38 39 39 35 37 38 39 39 36 38 38 39 36 37 39 40 39 40 38 42 39 41
+ 37]
+
+
+locals max :	- mean: 514.6	- std: 286.8
+locals max :	- mean: 17.15 sec	- std: 9.56 sec
+
+locals max diff:	- mean: 38.36	- std: 1.546
+locals max diff:	- mean: 1.279 sec	- std: 0.05154 sec
+
+
+-----------------------------------------------
+y_piede_sx_3:
+
+acf locals max     : [  42   84  128  172  214  256  299  341  383  425  468  513  556  598
+  640  682  724  767  815  858  900  941  980 1014]
+acf locals max diff: [42 44 44 42 42 43 42 42 42 43 45 43 42 42 42 42 43 48 43 42 41 39 34]
+
+
+locals max :	- mean: 533.3	- std: 295.3
+locals max :	- mean: 17.78 sec	- std: 9.844 sec
+
+locals max diff:	- mean: 42.26	- std: 2.381
+locals max diff:	- mean: 1.409 sec	- std: 0.07938 sec
+
+
+-----------------------------------------------
+x_piede_dx_1:
+
+acf locals max     : [ 40  82 117 151 193 237 294 334 377 424 473 513 551 592 630 671 710 748
+ 787 825 867 907 945 981]
+acf locals max diff: [42 35 34 42 44 57 40 43 47 49 40 38 41 38 41 39 38 39 38 42 40 38 36]
+
+
+locals max :	- mean: 518.7	- std: 287.4
+locals max :	- mean: 17.29 sec	- std: 9.579 sec
+
+locals max diff:	- mean: 40.91	- std: 4.836
+locals max diff:	- mean: 1.364 sec	- std: 0.1612 sec
+
+
+-----------------------------------------------
+y_piede_dx_1:
+
+acf locals max     : [ 41  85 122 170 212 259 297 337 379 425 465 497 545 583 631 670 715 756
+ 805 843 881 923 982]
+acf locals max diff: [44 37 48 42 47 38 40 42 46 40 32 48 38 48 39 45 41 49 38 38 42 59]
+
+
+locals max :	- mean: 505.3	- std: 279.6
+locals max :	- mean: 16.84 sec	- std: 9.32 sec
+
+locals max diff:	- mean: 42.77	- std: 5.616
+locals max diff:	- mean: 1.426 sec	- std: 0.1872 sec
+
+
+-----------------------------------------------
+x_piede_dx_2:
+
+acf locals max     : [ 40  81 119 154 193 232 272 310 344 380 419 460 499 540 579 615 655 693
+ 730 769 806 847 887 926 961]
+acf locals max diff: [41 38 35 39 39 40 38 34 36 39 41 39 41 39 36 40 38 37 39 37 41 40 39 35]
+
+
+locals max :	- mean: 500.4	- std: 277.0
+locals max :	- mean: 16.68 sec	- std: 9.234 sec
+
+locals max diff:	- mean: 38.38	- std: 1.996
+locals max diff:	- mean: 1.279 sec	- std: 0.06654 sec
+
+
+-----------------------------------------------
+y_piede_dx_2:
+
+acf locals max     : [ 40  81 122 162 216 259 300 339 368 412 451 485 522 562 604 652 692 735
+ 782 820 861 903 952]
+acf locals max diff: [41 41 40 54 43 41 39 29 44 39 34 37 40 42 48 40 43 47 38 41 42 49]
+
+
+locals max :	- mean: 492.2	- std: 270.6
+locals max :	- mean: 16.41 sec	- std: 9.021 sec
+
+locals max diff:	- mean: 41.45	- std: 5.052
+locals max diff:	- mean: 1.382 sec	- std: 0.1684 sec
+
+
+-----------------------------------------------
+x_piede_dx_3:
+
+acf locals max     : [  39   79  116  153  193  236  271  301  338  380  420  440  481  521
+  563  602  640  679  718  758  797  836  877  917  955  987 1012]
+acf locals max diff: [40 37 37 40 43 35 30 37 42 40 20 41 40 42 39 38 39 39 40 39 39 41 40 38
+ 32 25]
+
+
+locals max :	- mean: 530.0	- std: 294.7
+locals max :	- mean: 17.67 sec	- std: 9.822 sec
+
+locals max diff:	- mean: 37.42	- std: 5.19
+locals max diff:	- mean: 1.247 sec	- std: 0.173 sec
+
+
+-----------------------------------------------
+y_piede_dx_3:
+
+acf locals max     : [  41   83  127  172  214  255  297  339  381  422  464  504  552  596
+  638  679  720  764  813  854  895  935  975 1020]
+acf locals max diff: [42 44 45 42 41 42 42 42 41 42 40 48 44 42 41 41 44 49 41 41 40 40 45]
+
+
+locals max :	- mean: 530.8	- std: 294.7
+locals max :	- mean: 17.69 sec	- std: 9.824 sec
+
+locals max diff:	- mean: 42.57	- std: 2.337
+locals max diff:	- mean: 1.419 sec	- std: 0.07791 sec
+
