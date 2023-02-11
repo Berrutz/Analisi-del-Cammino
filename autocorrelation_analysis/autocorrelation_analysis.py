@@ -136,7 +136,6 @@ def analyze_dataset(dataset_dict, p_folder):
         analyze_joint(dataset[joint].tolist(), joint, d_number, dat_num_folder, plots_folder)
 
 
-
 def read_dataset(d_path):
     return pd.read_csv(d_path)
 
@@ -182,6 +181,7 @@ def analyze_joint(joint_series, joint_name, dat_num, dat_num_folder, plots_folde
     
     report.close()
 
+
 def plot_and_save_acf(acf, plot_folder, d_number, joint):
 
     plt.figure(figsize=(20,7))
@@ -220,8 +220,8 @@ def make_stationary(series, max_steps = 30):
 
     steps = 0
     s_back = series.copy()
-
-    while(sts.adfuller(series)[1] > 0.05 and max_steps < 30):
+    
+    while(sts.adfuller(series)[1] > 0.05 and steps < max_steps):
         series = compute_first_diff(series)
         steps += 1
 
