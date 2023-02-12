@@ -16,22 +16,6 @@ locals max diff:	- mean: 1.076 sec	- std: 0.06415 sec
 
 
 -----------------------------------------------
-y_piede_sx_1:
-
-acf locals max     : [ 33  79 113 158 192 225 272 305 347 384 417 464 497 540 577 610 637 657
- 689 725 770 801 827 853 883 912 938 961]
-acf locals max diff: [46 34 45 34 33 47 33 42 37 33 47 33 43 37 33 27 20 32 36 45 31 26 26 30
- 29 26 23]
-
-
-locals max :	- mean: 530.9	- std: 280.7
-locals max :	- mean: 17.7 sec	- std: 9.356 sec
-
-locals max diff:	- mean: 34.37	- std: 7.464
-locals max diff:	- mean: 1.146 sec	- std: 0.2488 sec
-
-
------------------------------------------------
 x_piede_sx_2:
 
 acf locals max     : [ 33  61  94 126 155 187 220 247 280 313 342 374 406 433 466 498 529 561
@@ -45,22 +29,6 @@ locals max :	- mean: 15.58 sec	- std: 8.704 sec
 
 locals max diff:	- mean: 31.43	- std: 2.692
 locals max diff:	- mean: 1.048 sec	- std: 0.08972 sec
-
-
------------------------------------------------
-y_piede_sx_2:
-
-acf locals max     : [ 33  77 107 153 187 219 263 294 329 373 405 432 453 482 516 561 592 618
- 640 669 702 747 776 800 826 856 878 910 932]
-acf locals max diff: [44 30 46 34 32 44 31 35 44 32 27 21 29 34 45 31 26 22 29 33 45 29 24 26
- 30 22 32 22]
-
-
-locals max :	- mean: 511.4	- std: 267.7
-locals max :	- mean: 17.05 sec	- std: 8.924 sec
-
-locals max diff:	- mean: 32.11	- std: 7.566
-locals max diff:	- mean: 1.07 sec	- std: 0.2522 sec
 
 
 -----------------------------------------------
@@ -80,21 +48,6 @@ locals max diff:	- mean: 1.102 sec	- std: 0.04708 sec
 
 
 -----------------------------------------------
-y_piede_sx_3:
-
-acf locals max     : [ 39  80 118 158 198 237 278 316 357 396 434 476 514 555 595 633 673 711
- 751 790 826 869 907 944 980]
-acf locals max diff: [41 38 40 40 39 41 38 41 39 38 42 38 41 40 38 40 38 40 39 36 43 38 37 36]
-
-
-locals max :	- mean: 513.4	- std: 283.8
-locals max :	- mean: 17.11 sec	- std: 9.461 sec
-
-locals max diff:	- mean: 39.21	- std: 1.755
-locals max diff:	- mean: 1.307 sec	- std: 0.05851 sec
-
-
------------------------------------------------
 x_piede_dx_1:
 
 acf locals max     : [ 36  79  98 128 154 190 227 266 296 344 382 418 476 509 538 573 610 660
@@ -107,21 +60,6 @@ locals max :	- mean: 15.48 sec	- std: 8.996 sec
 
 locals max diff:	- mean: 36.62	- std: 8.616
 locals max diff:	- mean: 1.221 sec	- std: 0.2872 sec
-
-
------------------------------------------------
-y_piede_dx_1:
-
-acf locals max     : [ 38  76 112 150 188 228 267 305 344 382 420 459 496 534 573 610 644 681
- 718 757 796 824 863 903]
-acf locals max diff: [38 36 38 38 40 39 38 39 38 38 39 37 38 39 37 34 37 37 39 39 28 39 40]
-
-
-locals max :	- mean: 473.7	- std: 260.8
-locals max :	- mean: 15.79 sec	- std: 8.692 sec
-
-locals max diff:	- mean: 37.61	- std: 2.427
-locals max diff:	- mean: 1.254 sec	- std: 0.0809 sec
 
 
 -----------------------------------------------
@@ -140,21 +78,6 @@ locals max diff:	- mean: 1.4 sec	- std: 0.2427 sec
 
 
 -----------------------------------------------
-y_piede_dx_2:
-
-acf locals max     : [ 37  71 106 141 180 219 254 291 326 364 403 440 478 511 547 582 615 651
- 686 723 759 786 824 864]
-acf locals max diff: [34 35 35 39 39 35 37 35 38 39 37 38 33 36 35 33 36 35 37 36 27 38 40]
-
-
-locals max :	- mean: 452.4	- std: 249.3
-locals max :	- mean: 15.08 sec	- std: 8.31 sec
-
-locals max diff:	- mean: 35.96	- std: 2.694
-locals max diff:	- mean: 1.199 sec	- std: 0.08981 sec
-
-
------------------------------------------------
 x_piede_dx_3:
 
 acf locals max     : [ 36  69  94 125 155 191 228 262 288 318 347 384 420 453 479 512 540 575
@@ -169,18 +92,17 @@ locals max :	- mean: 15.34 sec	- std: 8.833 sec
 locals max diff:	- mean: 34.19	- std: 6.674
 locals max diff:	- mean: 1.14 sec	- std: 0.2225 sec
 
+------------------------- summary ----------------------
+x_piede_sx_1: 32.29
+x_piede_sx_2: 31.43
+x_piede_sx_3: 33.07
+x_piede_dx_1: 36.62
+x_piede_dx_2: 42.0
+x_piede_dx_3: 34.19
 
------------------------------------------------
-y_piede_dx_3:
+piede sx mean: 32.26  |  1.075 sec
+piede dx mean: 37.6  |  1.253 sec
 
-acf locals max     : [ 38  77 112 151 191 229 269 304 343 383 422 461 496 535 575 612 649 684
- 722 763 800 833 870 906]
-acf locals max diff: [39 35 39 40 38 40 35 39 40 39 39 35 39 40 37 37 35 38 41 37 33 37 36]
+passo completo mean: 69.87  |  2.329 sec
 
-
-locals max :	- mean: 476.0	- std: 262.5
-locals max :	- mean: 15.87 sec	- std: 8.751 sec
-
-locals max diff:	- mean: 37.74	- std: 2.069
-locals max diff:	- mean: 1.258 sec	- std: 0.06896 sec
 

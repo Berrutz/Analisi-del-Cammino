@@ -108,12 +108,52 @@ def analyze_patients(patients):
         
         log.info('analyzing patient {}'.format(p_name))
         for dataset in datasets:
-            analyze_dataset(dataset, p_folder)    
-
+            analyze_dataset(dataset, p_folder)
         log.info('end \n\n')   
-        # for each dataset 
-            # create folder
-            # do analysis
+ 
+
+def mean_stride_by_report(dat_num_folder):
+    file_path = os.path.join(dat_num_folder, 'report.txt')
+    
+    piede_dict = dict()
+    with open(file_path, 'r') as file:
+        
+        
+        line = file.readline()
+        while line:
+
+            if line.find('x_piede') != -1:
+                aux_line = file.readline()
+
+                while aux_line and aux_line.find('locals max diff'):
+                    aux_line = file.readline()
+                aux_split = line.split(':')
+                piede_dict[aux_split[0]] = float(aux_line.split(' ')[4][:-1])
+
+            line = file.readline()            
+
+    with open(file_path, 'a') as file:
+        file.write('------------------------- summary ----------------------\n')
+        
+        piede_dx_mean = 0
+        piede_sx_mean = 0
+        for key, value in piede_dict.items():
+            file.write('{}: {}\n'.format(key, value))
+            if key.find('sx') != -1:
+                piede_sx_mean += value
+            if key.find('dx') != -1:
+                piede_dx_mean += value   
+
+        piede_sx_mean = piede_sx_mean / 3
+        piede_dx_mean = piede_dx_mean / 3
+        complete_stride = piede_dx_mean + piede_sx_mean
+        
+        file.write('\n')
+        file.write('piede sx mean: {:.4}  |  {:.4} sec\n'.format(piede_sx_mean, piede_sx_mean/30))
+        file.write('piede dx mean: {:.4}  |  {:.4} sec\n\n'.format(piede_dx_mean, piede_dx_mean/30))
+        file.write('passo completo mean: {:.4}  |  {:.4} sec\n'.format(complete_stride, complete_stride/30))    
+        file.write('\n\n')
+
 
 
 def analyze_dataset(dataset_dict, p_folder):
@@ -130,10 +170,12 @@ def analyze_dataset(dataset_dict, p_folder):
     log.info('--- analyzing dataset | type: {} number: {}'.format(walking, d_number))
     for joint in dataset.columns:
 
-        if joint.startswith('l') or joint.find('piede') == -1:
+        if joint.startswith('l') or joint.find('x_piede') == -1:
             continue
 
         analyze_joint(dataset[joint].tolist(), joint, d_number, dat_num_folder, plots_folder)
+
+    mean_stride_by_report(dat_num_folder)
 
 
 def read_dataset(d_path):
@@ -157,7 +199,7 @@ def analyze_joint(joint_series, joint_name, dat_num, dat_num_folder, plots_folde
     acf = funzione_autocorrelazione(joint_series)
     
     # save the acf plot
-    plot_and_save_acf(acf, plots_folder, dat_num, joint_name)
+    plot_and_save_acf(acf, plots_folder, dat_num, joint_name, series=joint_series)
 
     # get the local maxima for the acf
     local_max = argrelextrema(acf, np.greater)[0]
@@ -182,9 +224,18 @@ def analyze_joint(joint_series, joint_name, dat_num, dat_num_folder, plots_folde
     report.close()
 
 
-def plot_and_save_acf(acf, plot_folder, d_number, joint):
+def plot_and_save_acf(acf, plot_folder, d_number, joint, series = []):
 
-    plt.figure(figsize=(20,7))
+    plt.figure(figsize=( 20, 14 if len(series) != 0 else 7 ))
+
+    if len(series) != 0:
+        plt.subplot(2,1,1)
+        plt.title('original joint series')
+        plt.plot(series)
+
+    if len(series) != 0:
+        plt.subplot(2,1,2)
+
     plt.title('acf of {}'.format(joint))
     plt.ylim([-1, 1])
     x = np.arange(len(acf))
@@ -209,28 +260,40 @@ def delete_nan(series: pd.Series | list):
     return new_series
 
 
-def compute_first_diff(lista):
-    if not isinstance(lista, np.ndarray):
-        lista = np.array(lista)
-    return lista[1:] - lista[:len(lista)-1]
+def compute_first_diff(series: list | np.ndarray):
+    """ Calcola la prima differenza
+    """
+    
+    if not isinstance(series, np.ndarray):
+        series = np.array(series)
+
+    return series[1:] - series[:len(series)-1]
 
 
 
 def make_stationary(series, max_steps = 30):
-
-    steps = 0
-    s_back = series.copy()
+    """ Rende la serie stazionaria mediante il calcolo
+        della prima differenza
+    """
+    step = 0   # numero di step
+    s_copy = series.copy()  # copia della serie
     
-    while(sts.adfuller(series)[1] > 0.05 and steps < max_steps):
+    # fino a quando il test ritornca che la serie
+    # non è stazionaria oppure sono stati superati
+    # il massimo di step
+    while(sts.adfuller(series)[1] > 0.05 
+        and step < max_steps):
+        
+        # calcola la prima differenza
         series = compute_first_diff(series)
-        steps += 1
+        step += 1
 
-    if steps > 30:
+    if step > 30:
         log.warning('\t\tcannot make the joint stationary')
-        series = s_back
+        series = s_copy
 
-    elif steps > 0:
-        log.warning('\t\tjoint series not stationary (diff: {})'.format(steps))
+    elif step > 0:
+        log.warning('\t\tjoint series not stationary (diff: {})'.format(step))
 
     return series
 
